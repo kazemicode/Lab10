@@ -23,13 +23,16 @@ def initializeGame():
   secretWord = pickAWord(wordTuple)         # An ordered list of letters in word
   gameBoard = getGameBoard(len(secretWord)) # Initally a list of spaces
   while guesses > 0 and secretWord != gameBoard:
+    print
+    print
+    print "######################"
     print "You have ", guesses, " guesses remaining."
     print "Guess the word:"
     print
-    print
+    print 
     printGameBoard(gameBoard) 
-    checkLetter(secretWord, gameBoard)
     printGuessedLetters(guessedLetters)
+    checkLetter(secretWord, gameBoard)
   if guesses <= 0:                  # Lose condition
     print "Out of guesses! You lose!"
   elif secretWord == gameBoard:           # Win condition
@@ -68,11 +71,13 @@ def printGameBoard(gameBoard):
 
 # Print out the letters already guessed
 def printGuessedLetters(guessedLetters):
-  print "GUESSED LETTERS: ",
-  if len(guessedLetters) > 1:
+  if len(guessedLetters) > 0:
+    print "GUESSED LETTERS: ",
     for index in range(0, len(guessedLetters) - 1):
       print guessedLetters[index] , 
-  print guessedLetters[-1]
+    print guessedLetters[-1]
+  else:
+    print "GUESSED LETTERS:"
     
 # Enumerates the ordered list of letters in the word 
 # for each position that matches the guessed letter,
@@ -85,7 +90,7 @@ def checkLetter(word, gameBoard):
     guess = requestString('Invalid guess. Must be a single letter.')
  
   if guess in guessedLetters:
-    print "You guessed that letter already!" 
+    showInformation("You guessed that letter already. Try again.")
   elif guess not in word:
     global guesses
     guesses = guesses - 1
