@@ -1,3 +1,8 @@
+# Sara Kazemi and Cody Young
+# Lab 10 - Hangman
+# Run the main() function
+###############################
+
 import random 
 
 guesses = 6
