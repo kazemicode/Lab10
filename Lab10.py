@@ -66,6 +66,7 @@ def printGameBoard(gameBoard):
   print
   print
 
+# Print out the letters already guessed
 def printGuessedLetters(guessedLetters):
   print "GUESSED LETTERS: ",
   if len(guessedLetters) > 1:
