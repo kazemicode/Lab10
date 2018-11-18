@@ -30,7 +30,7 @@ def initializeGame():
     checkLetter(secretWord, gameBoard)
   if guesses <= 0:                  # Lose condition
     print "Out of guesses! You lose!"
-  elif copy == gameBoard:           # Win condition
+  elif secretWord == gameBoard:           # Win condition
     printGameBoard(gameBoard) 
     print "You win!"
   print "Play again!"               
