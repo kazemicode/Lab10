@@ -1,7 +1,7 @@
 import random 
 
 guesses = 6
-
+guessedLetters = []
 wordTuple = ("awkward", "banjo", "crypt", "dwarf", "fever", "fjord", "gaze", "gypsy", "haiku", "hyper", "ivory",\
 "jazzy", "jiffy", "jinx", "kayak", "kiosk", "klutz", "memes", "misty", "naive", "nerdy", "oxen", "pixel", "pick",\
 "quip", "quit", "ripen", "rites", "sphere", "speak", "total", "taper", "tuft", "upper", "usual", "wild", "wield",\
@@ -19,6 +19,7 @@ You have six guesses.")
 
 # Initialize and play the game until word is guessed or out of guesses
 def initializeGame():
+  global guessedLetters
   secretWord = pickAWord(wordTuple)         # An ordered list of letters in word
   gameBoard = getGameBoard(len(secretWord)) # Initally a list of spaces
   while guesses > 0 and secretWord != gameBoard:
@@ -28,6 +29,7 @@ def initializeGame():
     print
     printGameBoard(gameBoard) 
     checkLetter(secretWord, gameBoard)
+    printGuessedLetters(guessedLetters)
   if guesses <= 0:                  # Lose condition
     print "Out of guesses! You lose!"
   elif secretWord == gameBoard:           # Win condition
@@ -63,17 +65,34 @@ def printGameBoard(gameBoard):
     print element ,
   print
   print
+
+def printGuessedLetters(guessedLetters):
+  print "GUESSED LETTERS: ",
+  if len(guessedLetters) > 1:
+    for index in range(0, len(guessedLetters) - 1):
+      print guessedLetters[index] , 
+  print guessedLetters[-1]
     
 # Enumerates the ordered list of letters in the word 
 # for each position that matches the guessed letter,
 # replace the blank on the gameboard at that location
 # with the guessed letter
 def checkLetter(word, gameBoard):
+  global guessedLetters
   guess = requestString('Enter a letter').lower()
-  # replace every letter in word that matches the guess
-  if guess not in word:
+  while len(guess) != 1 or not(guess.isalpha()):
+    guess = requestString('Invalid guess. Must be a single letter.')
+ 
+  if guess in guessedLetters:
+    print "You guessed that letter already!" 
+  elif guess not in word:
     global guesses
     guesses = guesses - 1
+    guessedLetters.append(guess)
+  else:
+    guessedLetters.append(guess)
+    
+  # replace every letter in word that matches the guess  
   for index, letter in enumerate(word):
     if letter == guess:
       gameBoard[index] = word[index]
